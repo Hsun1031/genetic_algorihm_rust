@@ -5,13 +5,14 @@ mod crossover_module;
 use std::time::Instant;
 
 fn main() {
-    let len = 10;
+    let len = 4;
     let (bits_list, output_list ) = init_population(len);
     let (new_bits_list, new_output_list) = selection(&bits_list, &output_list);
-    // crossover(&new_bits_list);
+    let (cross_bits_list, cross_output_list) = crossover(&new_bits_list);
 
-    // println!("output_list: {:?}", output_list);
-    // println!("new_output_list: {:?}", new_output_list);
+    println!("output_list: {:?}", output_list);
+    println!("new_output_list: {:?}", new_output_list);
+    println!("cross_output_list: {:?}", cross_output_list);
 }
 
 fn init_population(len: i16) -> (Vec<[u8; 24]>, Vec<i16>) {
@@ -37,7 +38,7 @@ fn init_population(len: i16) -> (Vec<[u8; 24]>, Vec<i16>) {
     let elapsed_time = start_time.elapsed();
     println!("init_population: {:?}", elapsed_time);
 
-    println!("{:?}", output_list);
+    // println!("{:?}", output_list);
     // println!("{:?}", bits_list);
 
     (bits_list, output_list)
@@ -62,15 +63,27 @@ fn selection(bits_list: &Vec<[u8; 24]>, output_list: &Vec<i16>) -> (Vec<[u8; 24]
     let elapsed_time = start_time.elapsed(); 
     println!("selection: {:?}", elapsed_time);
 
-    println!("{:?}", new_output_list);
+    // println!("{:?}", new_output_list);
     // println!("{:?}", new_bits_list);
 
     (new_bits_list, new_output_list)
 }
 
-// fn crossover(bits_list: &Vec<Vec<Vec<u8>>>) {
-//     crossover_module::two_points_crossover(bits_list);
-// }
+fn crossover(bits_list: &Vec<[u8; 24]>) -> (Vec<[u8; 24]>, Vec<i16>){
+    let mut new_output_list: Vec<i16> = Vec::new();
+    let new_bits_list = crossover_module::two_points_crossover(bits_list);
+    
+    // Get 100 outputs
+    for i in 0..new_bits_list.len() {
+        // output_list.push(init_module::get_output( &bits_list[i] ));
+        match new_bits_list.get(i) {
+            Some(bits) => new_output_list.push(init_module::get_output( bits )),
+            None => println!("Error: bits_list.get({}) is None", i),
+        }
+    }
+
+    (new_bits_list, new_output_list)
+}
 
 // // fn mutation() {
 
