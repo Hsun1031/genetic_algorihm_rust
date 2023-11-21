@@ -1,8 +1,8 @@
 use rand::prelude::*;
 
-pub fn one_point_crossover(bits_list: &Vec<[u8; 24]>) {
+// pub fn one_point_crossover(bits_list: &Vec<[u8; 24]>) {
 
-}
+// }
 
 pub fn two_points_crossover(bits_list: &Vec<[u8; 24]>) -> Vec<[u8; 24]> {
     let mut new_bits_list = Vec::new();
@@ -82,45 +82,45 @@ fn two_points_swap(bits_list1: &[u8; 24], bits_list2: &[u8; 24], num1: usize, nu
     (swap_bits_list1, swap_bits_list2)
 }
 
-pub fn rand_points_crossover(bits_list: &Vec<[u8; 24]>) -> Vec<[u8; 24]> { 
-    let mut new_bits_list = Vec::new();
+// pub fn rand_points_crossover(bits_list: &Vec<[u8; 24]>) -> Vec<[u8; 24]> { 
+//     let mut new_bits_list = Vec::new();
 
-    for i in (0..bits_list.len()).step_by(2)  {
-        match bits_list.get(i) {
-            Some(bits) => {
-                match bits_list.get(i + 1) {
-                    Some(bits2) => {
-                        let (swap_bits_list1, swap_bits_list2) = rand_points_swap(&bits, &bits2);
-                        new_bits_list.push(swap_bits_list1);
-                        new_bits_list.push(swap_bits_list2);
-                    },
-                    None => println!("Error: bits_list.get({}) is None", i + 1),
+//     for i in (0..bits_list.len()).step_by(2)  {
+//         match bits_list.get(i) {
+//             Some(bits) => {
+//                 match bits_list.get(i + 1) {
+//                     Some(bits2) => {
+//                         let (swap_bits_list1, swap_bits_list2) = rand_points_swap(&bits, &bits2);
+//                         new_bits_list.push(swap_bits_list1);
+//                         new_bits_list.push(swap_bits_list2);
+//                     },
+//                     None => println!("Error: bits_list.get({}) is None", i + 1),
                     
-                }
-            },
-            None => println!("Error: bits_list.get({}) is None", i),
-        }
-    }
+//                 }
+//             },
+//             None => println!("Error: bits_list.get({}) is None", i),
+//         }
+//     }
 
-    new_bits_list
-}
+//     new_bits_list
+// }
 
-fn rand_points_swap(bits_list1: &[u8; 24], bits_list2: &[u8; 24]) -> ([u8; 24], [u8; 24]){
-    let mut rng:ThreadRng = thread_rng();
-    let mut swap_bits_list1: [u8; 24] = [0; 24];
-    let mut swap_bits_list2: [u8; 24] = [0; 24];
+// fn rand_points_swap(bits_list1: &[u8; 24], bits_list2: &[u8; 24]) -> ([u8; 24], [u8; 24]){
+//     let mut rng:ThreadRng = thread_rng();
+//     let mut swap_bits_list1: [u8; 24] = [0; 24];
+//     let mut swap_bits_list2: [u8; 24] = [0; 24];
 
-    for i in 0..bits_list1.len() {
-        let num1: usize = rng.gen_range(0..1);
+//     for i in 0..bits_list1.len() {
+//         let num1: usize = rng.gen_range(0..1);
 
-        if num1 == 0 {
-            swap_bits_list1[i] = bits_list2[i];
-            swap_bits_list2[i] = bits_list1[i];
-        } else {
-            swap_bits_list1[i] = bits_list1[i];
-            swap_bits_list2[i] = bits_list2[i];
-        }
-    }
+//         if num1 == 0 {
+//             swap_bits_list1[i] = bits_list2[i];
+//             swap_bits_list2[i] = bits_list1[i];
+//         } else {
+//             swap_bits_list1[i] = bits_list1[i];
+//             swap_bits_list2[i] = bits_list2[i];
+//         }
+//     }
 
-    (swap_bits_list1, swap_bits_list2)
-}
+//     (swap_bits_list1, swap_bits_list2)
+// }

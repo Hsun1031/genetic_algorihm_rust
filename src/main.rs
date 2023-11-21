@@ -8,27 +8,27 @@ use std::fs;
 // use std::time::Instant;
 
 fn main() {
-    let len = 100;
+    let len = 1000;
     let mut max_list:Vec<i16> = Vec::new();
     let mut avg_list:Vec<f64> = Vec::new();
 
-    let mut bits_list: Vec<[u8; 24]> = Vec::new();
-    let mut output_list: Vec<i16> = Vec::new();
+    let (mut bits_list, mut output_list ) = init_population(len);
 
-    (bits_list, output_list ) = init_population(len);
-    for _ in 0..=100 {
-        let (new_bits_list, new_output_list) = selection(&bits_list, &output_list);
-        let (cross_bits_list, cross_output_list) = crossover(&new_bits_list);
-        let (mutation_bits_list, mutation_output_list) = mutation(&cross_bits_list);
+    for _ in 0..=1000 {
+        let (new_bits_list, new_output_list)            = selection(&bits_list, &output_list);
+        let (cross_bits_list, cross_output_list)        = crossover(&new_bits_list);
+        let (mutation_bits_list, mutation_output_list)  = mutation(&cross_bits_list);
+
+        // find max and avg
         let (max, avg) = get_max_and_avg(&mutation_output_list);
         max_list.push(max);
         avg_list.push(avg);
 
-        bits_list = mutation_bits_list.clone();
+        bits_list   = mutation_bits_list.  clone();
         output_list = mutation_output_list.clone();
     }
-    println!("max_list: {:?}", max_list);
-    println!("avg_list: {:?}", avg_list);
+    // println!("max_list: {:?}", max_list);
+    // println!("avg_list: {:?}", avg_list);
     
     // Convert the lists to strings
     let max_list_str = max_list.iter().map(|i| i.to_string()).collect::<Vec<String>>().join(", ");
@@ -36,6 +36,9 @@ fn main() {
 
     // Write the strings to files
     fs::write("out.csv", format!("{}\n{}", max_list_str, avg_list_str)).expect("Unable to write file");
+
+    println!("-------------------------------------------------------");
+    println!("Done!");
 }
 
 fn init_population(len: i16) -> (Vec<[u8; 24]>, Vec<i16>) {
@@ -128,7 +131,6 @@ fn get_max_and_avg(output_list: &Vec<i16>) -> (i16, f64) {
     let mut total: i32 = 0;
 
     let mut max = 0;
-    let mut avg: f64 = 0.0;
 
     for i in 0..output_list.len() {
         match output_list.get(i) {
@@ -142,7 +144,7 @@ fn get_max_and_avg(output_list: &Vec<i16>) -> (i16, f64) {
         }
     }
 
-    avg = ( total as f64/ (output_list.len() as f64) ) as f64;
+    let avg: f64 = ( total as f64/ (output_list.len() as f64) ) as f64;
 
     (max, avg)
 }

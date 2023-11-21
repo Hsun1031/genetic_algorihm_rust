@@ -1,8 +1,8 @@
 use rand::prelude::*;
 
-pub fn chromosome() {
+// pub fn chromosome() {
 
-}
+// }
 
 pub fn gene(bits_list: &Vec<[u8; 24]>) -> Vec<[u8; 24]> {
     let mut rng:ThreadRng = thread_rng();
