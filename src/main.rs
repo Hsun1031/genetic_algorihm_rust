@@ -29,13 +29,11 @@ fn main() {
     }
     // println!("max_list: {:?}", max_list);
     // println!("avg_list: {:?}", avg_list);
-    
-    // Convert the lists to strings
     let max_list_str = max_list.iter().map(|i| i.to_string()).collect::<Vec<String>>().join(", ");
     let avg_list_str = avg_list.iter().map(|i| i.to_string()).collect::<Vec<String>>().join(", ");
 
     // Write the strings to files
-    fs::write("out.csv", format!("{}\n{}", max_list_str, avg_list_str)).expect("Unable to write file");
+    fs::write("data.js", format!("const max_list = [{}];\nconst avg_list = [{}];", max_list_str, avg_list_str)).expect("Unable to write file");
 
     println!("-------------------------------------------------------");
     println!("Done!");

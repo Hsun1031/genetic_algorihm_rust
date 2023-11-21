@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script 
+            src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+        </script>
+    </head>
+    <body>
+        <canvas id="myChart" width="800" height="400"></canvas>
+    </body>
+    <script src="data.js"></script>
+    <script>
+        console.log(`max_list: ${max_list}`);
+        console.log(`avg_list: ${avg_list}`);
+
+        const ctx = document.getElementById('myChart');
+
+        const labels = [];
+        for (let i = 0; i < max_list.length; ++i) {
+            labels.push(i.toString());
+        }
+        console.log(`labels: ${labels}`);
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Max',
+                    data: max_list,
+                    borderColor: "red",
+                    backgroundColor: "red",
+                    borderWidth: 1,
+                    pointRadius: 0
+                }, {
+                    label: 'Average',
+                    data: avg_list,
+                    borderColor: "blue",
+                    backgroundColor: "blue",
+                    borderWidth: 1,
+                    pointRadius: 0
+                }
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Genetic Algorithm'
+                    }
+                }
+            },
+        };
+
+        let chart = new Chart(ctx, config);
+        chart.update();
+    </script>
+</html>
