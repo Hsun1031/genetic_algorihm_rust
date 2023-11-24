@@ -12,6 +12,7 @@
     <script>
         console.log(`max_list: ${max_list}`);
         console.log(`avg_list: ${avg_list}`);
+        console.log(`std_deviation_list: ${std_deviation_list}`);
 
         const ctx = document.getElementById('myChart');
 
@@ -35,6 +36,13 @@
                     data: avg_list,
                     borderColor: "blue",
                     backgroundColor: "blue",
+                    borderWidth: 1,
+                    pointRadius: 0
+                }, {
+                    label: 'std_deviation',
+                    data: std_deviation_list,
+                    borderColor: "black",
+                    backgroundColor: "black",
                     borderWidth: 1,
                     pointRadius: 0
                 }
